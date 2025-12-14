@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculadora Real França</title>
+  <style>
+    :root {
+      --blue: #1e5bff;
+      --blue-glow: rgba(30,91,255,.7);
+      --dark: rgba(0,0,0,.75);
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      background:
+        linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.85)),
+        url('fundo-fra.png') center center / cover no-repeat fixed;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0 10px;
+      font-size: 52px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px var(--blue-glow);
+    }
+
+    h1 span {
+      color: var(--blue);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+      animation: fadeIn .8s ease;
+    }
+
+    .subtitle {
+      text-align: center;
+      margin-top: -5px;
+      margin-bottom: 25px;
+      font-size: 16px;
+      letter-spacing: 1px;
+      color: #cfd8ff;
+      opacity: .9;
+    }
+
+    .subtitle span {
+      color: var(--blue);
+      font-weight: bold;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mode {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .mode button {
+      padding: 14px 30px;
+      font-size: 18px;
+      border: 2px solid var(--blue);
+      cursor: pointer;
+      border-radius: 10px;
+      background: transparent;
+      color: #fff;
+      transition: all .3s ease;
+      box-shadow: 0 0 15px var(--blue-glow);
+    }
+
+    .mode button:hover {
+      background: var(--blue);
+      box-shadow: 0 0 25px var(--blue-glow);
+    }
+
+    .mode button.active {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+    }
+
+    .item {
+      background: var(--dark);
+      border: 2px solid var(--blue);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 0 25px var(--blue-glow);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 35px var(--blue-glow);
+    }
+
+    .item h3 {
+      margin: 0 0 10px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .item .price {
+      text-align: center;
+      margin-bottom: 10px;
+      color: var(--blue);
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .item input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      text-align: center;
+      outline: none;
+      box-sizing: border-box;
+      line-height: 1.4;
+    }
+
+    .item input:focus {
+      box-shadow: 0 0 15px var(--blue-glow);
+    }
+
+    .total {
+      margin-top: 35px;
+      text-align: center;
+      font-size: 36px;
+      color: var(--blue);
+      text-shadow: 0 0 20px var(--blue-glow);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 40px; }
+      .total { font-size: 28px; }
+      .subtitle { font-size: 14px; }
+    }
+
+    .footer-text {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 14px;
+      color: #b8c4ff;
+      opacity: .85;
+    }
+
+    .footer-text .small {
+      margin-top: 6px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #8fa2ff;
+    }
+      .total { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>REAL <span>FRANÇA</span></h1>
+  <p class="subtitle">Disciplina, lealdade e foco.</p>
+
+  <div class="container">
+    <div class="mode">
+      <button id="parceriaBtn" class="active" onclick="setMode('parceria')">Com Parceria</button>
+      <button id="semBtn" onclick="setMode('sem')">Sem Parceria</button>
+    </div>
+
+    <div class="grid" id="items"></div>
+
+    <div class="total">Total: $ <span id="total">0</span></div>
+
+    <div class="footer-text">
+      <p>💠 Organização hoje, respeito amanhã.</p>
+      <p class="small">Real França — força, estratégia e visão.</p>
+    </div>
+
+  </div>
+
+  <script>
+    const prices = {
+      parceria: {
+        'Sniper': 10750,
+        'G36': 405,
+        'MTAR': 330,
+        'Remington': 330,
+        'AKS': 310,
+        'M4A1': 310,
+        'Five Seven': 275,
+        'Glock': 225,
+        'Maconha': 300
+      },
+      sem: {
+        'Sniper': 12000,
+        'G36': 450,
+        'MTAR': 365,
+        'Remington': 365,
+        'AKS': 340,
+        'M4A1': 340,
+        'Five Seven': 305,
+        'Glock': 250,
+        'Maconha': 350
+      }
+    };
+
+    let mode = 'parceria';
+
+    function setMode(m) {
+      mode = m;
+      document.getElementById('parceriaBtn').classList.toggle('active', m === 'parceria');
+      document.getElementById('semBtn').classList.toggle('active', m === 'sem');
+      renderItems();
+      calculate();
+    }
+
+    function renderItems() {
+      const container = document.getElementById('items');
+      container.innerHTML = '';
+      for (const item in prices[mode]) {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.innerHTML = `
+          <h3>${item}</h3>
+          <div class="price">$ ${prices[mode][item]}</div>
+          <input type="number" min="0" value="0" data-item="${item}" oninput="calculate()" />
+        `;
+        container.appendChild(div);
+      }
+    }
+
+    function calculate() {
+      let total = 0;
+      document.querySelectorAll('input[data-item]').forEach(input => {
+        const item = input.dataset.item;
+        const qty = Number(input.value) || 0;
+        total += qty * prices[mode][item];
+      });
+      document.getElementById('total').innerText = total.toLocaleString('pt-BR');
+    }
+
+    renderItems();
+  </script>
+</body>
+</html>

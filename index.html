@@ -4,139 +4,175 @@
 <meta charset="UTF-8">
 <title>EGITO AREA 6 - Império Supremo</title>
 
+<link href="https://chatgpt.com/backend-api/estuary/content?id=file_00000000d8a071f5abef42f4800d879a&ts=491854&p=fs&cid=1&sig=f637be1768a2bc4438764c0053c0332d83be6b5393932995fab99fd353754969&v=0" rel="stylesheet">
+
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    margin:0;
-    font-family: 'Orbitron', sans-serif;
-    background: url("bandeira-egito.png") no-repeat center center fixed;
-    background-size: cover;
-    transition: 0.4s;
+    font-family:'Orbitron',sans-serif;
+    background:url("fundo-egito.png") no-repeat center center fixed;
+    background-size:cover;
     color:white;
+    overflow-x:hidden;
 }
 
+/* Partículas */
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:0;
+}
+
+/* Overlay */
 .overlay{
+    position:relative;
+    z-index:2;
     min-height:100vh;
     padding:30px;
-    background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.6),
-        rgba(0,0,0,0.85)
-    );
-    backdrop-filter: blur(3px);
-    transition:0.4s;
+    background:linear-gradient(to bottom, rgba(0,20,40,0.7), rgba(0,0,0,0.95));
+    backdrop-filter:blur(6px);
 }
 
+/* Container */
 .container{
     max-width:950px;
     margin:auto;
-    background: rgba(0,0,0,0.75);
-    padding:25px;
-    border-radius:14px;
-    border:2px solid rgba(212,175,55,0.7);
-    box-shadow:0 0 30px rgba(212,175,55,0.4);
+    background:rgba(5,15,35,0.9);
+    padding:30px;
+    border-radius:18px;
+    border:2px solid #00e0ff;
+    box-shadow:0 0 50px rgba(0,200,255,0.4);
+    animation:fadeIn 1s ease;
 }
 
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* Título */
 h1{
     text-align:center;
-    color:#d4af37;
-    letter-spacing:3px;
-    text-shadow:0 0 15px rgba(212,175,55,0.8);
+    font-size:28px;
+    color:#00ffff;
+    letter-spacing:4px;
+    animation:neon 2s infinite alternate;
 }
 
+@keyframes neon{
+    from{ text-shadow:0 0 10px #00ffff; }
+    to{ text-shadow:0 0 25px #00ffff, 0 0 40px #00e0ff; }
+}
+
+/* Status */
 .status-modo{
     text-align:center;
     font-weight:bold;
-    padding:12px;
-    border-radius:8px;
-    margin:15px 0;
+    padding:14px;
+    border-radius:12px;
+    margin:25px 0;
     transition:0.3s;
 }
 
 .parceria{
-    background:#0f3d0f;
-    color:#00ff88;
-    border:1px solid #00ff88;
+    background:rgba(0,80,120,0.5);
+    border:1px solid #00ffff;
+    box-shadow:0 0 20px #00ffff;
+    color:#00ffff;
 }
 
 .normal{
-    background:#3d0f0f;
-    color:#ff4d4d;
+    background:rgba(100,0,0,0.5);
     border:1px solid #ff4d4d;
+    box-shadow:0 0 20px #ff4d4d;
+    color:#ff4d4d;
 }
 
-.toggle{
-    text-align:center;
-    margin-bottom:20px;
-}
+/* Botões */
+.toggle{text-align:center;margin-bottom:25px;}
 
 button{
-    padding:10px 18px;
+    padding:10px 22px;
     margin:5px;
     border:none;
-    border-radius:6px;
+    border-radius:8px;
     font-weight:bold;
     cursor:pointer;
     transition:0.3s;
 }
 
-.gold{ background:#d4af37; color:black; }
-.red{ background:#ce1126; color:white; }
+.blue{background:#00e0ff;color:black;}
+.red{background:#ce1126;color:white;}
 
 button:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 10px rgba(212,175,55,0.6);
+    transform:scale(1.1);
+    box-shadow:0 0 20px #00e0ff;
 }
 
+/* Produtos */
 .produto{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:10px;
-    border-bottom:1px solid #333;
+    padding:14px;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+    transition:0.3s;
+}
+
+.produto:hover{
+    background:rgba(0,200,255,0.1);
+    transform:scale(1.02);
 }
 
 .produto span{
-    color:#d4af37;
+    color:#00ffff;
     font-size:14px;
 }
 
 input[type="number"]{
-    width:60px;
-    padding:5px;
+    width:70px;
+    padding:6px;
     background:black;
-    border:1px solid #d4af37;
-    color:white;
+    border:1px solid #00e0ff;
+    color:#00ffff;
     text-align:center;
+    border-radius:6px;
 }
 
+/* Cards */
 .resumo{
     display:flex;
     gap:15px;
-    margin-top:25px;
+    margin-top:30px;
 }
 
 .card{
     flex:1;
-    background:#000;
-    padding:15px;
-    border-radius:10px;
+    background:rgba(0,0,0,0.8);
+    padding:20px;
+    border-radius:15px;
     text-align:center;
-    border:1px solid #d4af37;
-    box-shadow:0 0 15px rgba(212,175,55,0.2);
+    border:1px solid #00e0ff;
+    box-shadow:0 0 25px rgba(0,200,255,0.4);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 35px #00ffff;
 }
 
 .valor{
-    font-size:20px;
-    color:#d4af37;
-    margin-top:5px;
-    transition:0.2s;
+    font-size:22px;
+    color:#00ffff;
+    margin-top:8px;
 }
 
 footer{
     text-align:center;
-    margin-top:20px;
+    margin-top:30px;
     color:#aaa;
     font-size:12px;
 }
@@ -145,17 +181,19 @@ footer{
 
 <body>
 
-<div class="overlay" id="overlay">
+<canvas id="particles"></canvas>
+
+<div class="overlay">
 <div class="container">
 
-<h1>🏺 EGITO AREA 6</h1>
+<h1>❄️ EGITO AREA 6 ❄️</h1>
 
 <div id="statusModo" class="status-modo parceria">
 🟢 MODO PARCERIA ATIVO
 </div>
 
 <div class="toggle">
-    <button class="gold" onclick="setModo('parceria')">Com Parceria</button>
+    <button class="blue" onclick="setModo('parceria')">Com Parceria</button>
     <button class="red" onclick="setModo('normal')">Sem Parceria</button>
 </div>
 
@@ -182,76 +220,98 @@ footer{
 </div>
 
 <script>
+let modo="parceria";
 
-let modo = "parceria";
-
-const produtos = [
-{nome:"FIVE", parceria:273.35, normal:303.75},
-{nome:"G-36", parceria:405.00, normal:450.00},
-{nome:"Uzi", parceria:266.60, normal:296.25},
-{nome:"Doze", parceria:327.35, normal:363.75},
-{nome:"GLOCK", parceria:226.10, normal:251.25},
-{nome:"M-TAR", parceria:327.35, normal:363.75},
-{nome:"Sniper", parceria:10767.00, normal:11963.00},
-{nome:"Maconha", parceria:300.00, normal:350.00}
+const produtos=[
+{nome:"FIVE",parceria:273.35,normal:303.75},
+{nome:"G-36",parceria:405,normal:450},
+{nome:"Uzi",parceria:266.60,normal:296.25},
+{nome:"Doze",parceria:327.35,normal:363.75},
+{nome:"GLOCK",parceria:226.10,normal:251.25},
+{nome:"M-TAR",parceria:327.35,normal:363.75},
+{nome:"Sniper",parceria:10767,normal:11963},
+{nome:"Maconha",parceria:300,normal:350}
 ];
 
-function setModo(novo){
-    modo = novo;
-    const status = document.getElementById("statusModo");
-    const overlay = document.getElementById("overlay");
-
-    if(modo === "parceria"){
-        status.className = "status-modo parceria";
-        status.innerText = "🟢 MODO PARCERIA ATIVO";
-        overlay.style.background = "linear-gradient(to bottom, rgba(0,40,0,0.6), rgba(0,0,0,0.9))";
-    }else{
-        status.className = "status-modo normal";
-        status.innerText = "🔴 MODO SEM PARCERIA";
-        overlay.style.background = "linear-gradient(to bottom, rgba(60,0,0,0.6), rgba(0,0,0,0.9))";
-    }
-
-    render();
+function setModo(n){
+modo=n;
+const s=document.getElementById("statusModo");
+if(modo==="parceria"){
+s.className="status-modo parceria";
+s.innerText="🟢 MODO PARCERIA ATIVO";
+}else{
+s.className="status-modo normal";
+s.innerText="🔴 MODO SEM PARCERIA";
+}
+render();
 }
 
 function render(){
-    const container = document.getElementById("produtos");
-    container.innerHTML = "";
-
-    produtos.forEach((p,i)=>{
-        container.innerHTML += `
-        <div class="produto">
-            <div>
-                ${p.nome}<br>
-                <span>${formatar(p[modo])}</span>
-            </div>
-            <input type="number" min="0" value="0" oninput="calcular()" id="q${i}">
-        </div>
-        `;
-    });
-
-    calcular();
+const c=document.getElementById("produtos");
+c.innerHTML="";
+produtos.forEach((p,i)=>{
+c.innerHTML+=`
+<div class="produto">
+<div>${p.nome}<br><span>${formatar(p[modo])}</span></div>
+<input type="number" min="0" value="0" oninput="calcular()" id="q${i}">
+</div>`;
+});
+calcular();
 }
 
 function calcular(){
-    let total = 0;
-
-    produtos.forEach((p,i)=>{
-        const qtd = parseInt(document.getElementById("q"+i)?.value)||0;
-        total += qtd * p[modo];
-    });
-
-    document.getElementById("total").innerText = formatar(total);
-    document.getElementById("vendedorValor").innerText = formatar(total*0.3);
-    document.getElementById("empresaValor").innerText = formatar(total*0.7);
+let total=0;
+produtos.forEach((p,i)=>{
+const q=parseInt(document.getElementById("q"+i)?.value)||0;
+total+=q*p[modo];
+});
+document.getElementById("total").innerText=formatar(total);
+document.getElementById("vendedorValor").innerText=formatar(total*0.3);
+document.getElementById("empresaValor").innerText=formatar(total*0.7);
 }
 
 function formatar(v){
-    return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
 }
 
 render();
 
+/* Partículas */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+d:Math.random()*1
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(0,255,255,0.7)";
+ctx.beginPath();
+particles.forEach(p=>{
+ctx.moveTo(p.x,p.y);
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true);
+});
+ctx.fill();
+update();
+}
+
+function update(){
+particles.forEach(p=>{
+p.y+=p.d;
+if(p.y>canvas.height){p.y=0;}
+});
+}
+
+setInterval(draw,33);
 </script>
 
 </body>

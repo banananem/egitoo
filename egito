@@ -10,12 +10,13 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    font-family:'Orbitron',sans-serif;
-    background:url("fundo-egito.png") no-repeat center center fixed;
-    background-size:cover;
-    color:white;
-    overflow-x:hidden;
+    background: 
+        linear-gradient(rgba(5,15,30,0.85), rgba(5,15,30,0.95)),
+        url("https://teuusuario.github.io/egito-area6/fundo-egito.png")
+        no-repeat center center fixed;
+    background-size: cover;
 }
+
 
 /* Partículas */
 canvas{
